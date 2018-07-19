@@ -4,5 +4,5 @@ title        : "#dev"
 theme        : "detox"
 
 params:
-  author       : "Michele Rossi"
-  description  : "development blog test"
+    author       : "Michele Rossi"
+    description  : "development blog test"
