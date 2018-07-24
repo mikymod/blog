@@ -1,8 +1,8 @@
 baseurl      : "https://mikymod.github.io/"
 languageCode : "en-us"
-title        : "#dev"
+title        : "Mikymod's Blog"
 theme        : "detox"
 
 params:
     author       : "Michele Rossi"
-    description  : "development blog test"
+    description  : "development blog"
