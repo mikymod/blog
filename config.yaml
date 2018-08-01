@@ -1,8 +1,9 @@
-baseurl      : "https://mikymod.github.io/"
-languageCode : "en-us"
-title        : "Mikymod's Blog"
-theme        : "detox"
+baseurl         : "https://mikymod.github.io/"
+languageCode    : "en-us"
+title           : "GameCraft"
+theme           : "detox"
+disqusShortname : "mikymod-github-io"
 
 params:
     author       : "Michele Rossi"
-    description  : "development blog"
+    description  : "A developer journey"
