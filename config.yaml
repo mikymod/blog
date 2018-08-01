@@ -7,3 +7,5 @@ disqusShortname : "mikymod-github-io"
 params:
     author       : "Michele Rossi"
     description  : "A developer journey"
+    twitter_name : "MikyM0D"
+    github       : "mikymod"
