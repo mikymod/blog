@@ -8,7 +8,14 @@ draft : true
 
 ## Region and One Giant Room
 
-What is a region? When? Where? Why? 
+```
+What is a region? When? Where? Why?
+```
+
+Region is a subroom
+
+__Coupling between regions and many objects (camera_obj, switch_obj...)__
+__Talk about all_switches_enabled in Giant Room__
 
 Pros
 
@@ -24,7 +31,47 @@ Cons
 
 ### One level per room
 
+```
 What is a transition? When? Where? Why?
+```
+
+transition_obj is a teleport from a room to another.
+
+__Talk about all_switches_enabled in One Level Per Room__
+
+
+```
+#region create-event
+
+// Must be set in Instance Creation Code
+target_room = noone;
+spawn_x     = noone;
+spawn_y     = noone;
+
+```
+When actor collides with it, switch room to target_room at positition [spawn_x, spawn_y]:
+
+```
+#region step-event
+if (place_meeting(x, y, actor_obj))
+{
+	if (room_exists(target_room))
+		room_goto(target_room);
+		
+	with (actor_obj)
+	{
+		spawn_x = other.spawn_x;
+		spawn_y = other.spawn_y;
+	}
+}
+```
+
+In the player_obj's room start event:
+
+```
+x = spawn_x;
+y = spawn_y;
+```
 
 Pros
 
@@ -37,61 +84,5 @@ Cons
 * Split geometry in several rooms can be a problem
 * Transitions between rooms must be placed contiguous
 
+### FX
 
-### Implementation
-
-In the create event:
-
-```
-enum TransitionDir
-{
-    Top,
-    Bottom,
-    Left,
-    Right
-}
-
-target_room = noone;
-
-```
-
-In the step event:
-
-```
-if (place_meeting(x, y, actor_obj))
-{
-    if (room_exists(target_room))
-    {
-        room_goto(target_room);
-    }
-}
-```
-
-### Change object position
-
-```
-/// @function transition_set_position
-/// @arg {object} obj
-/// @arg {enum} dir
-
-if (!instance_exists(obj))
-    return;
-
-switch (dir)
-{
-    case TransitionDir.Top:
-        obj.y = room_height - 16;
-        break;
-    case TransitionDir.Bottom:
-        obj.y = 16
-        break;
-    case TransitionDir.Left:
-        obj.x = room_width - 16;
-        break;
-    case TransitionDir.Right:
-        obj.x = 16;
-        break;
-}
-
-```
-------
