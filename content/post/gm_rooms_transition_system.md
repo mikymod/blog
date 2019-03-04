@@ -6,19 +6,39 @@ author: Michele Rossi
 draft : true
 ---
 
-### Giant Room
+## Region and One Giant Room
+
+What is a region? When? Where? Why? 
 
 Pros
 
-* I can see everything 
+* I can see everything w/o switching between rooms
+* Regions are versatile in the room's role and they are highly customizable
 
 Cons
 
-* room editor is laggy as fuck: level design becomes a frustrating experience (slow editing/creation of new levels)
-* rooms are native mechanism in GM
-* I can focus on a 
+* Room editor is laggy as fuck: level design becomes a frustrating experience (slow editing/creation of new levels)
+* Change room order is a boring and bugprone process
+* No need another abstraction over room (region)
+* Rooms are native mechanism in GM
 
-### Transition Object
+### One level per room
+
+What is a transition? When? Where? Why?
+
+Pros
+
+* No more lag
+* More control on engine's workflow (e.g. switch room order is way faster then drag and drop game objects)
+* Cleaner code
+
+Cons
+
+* Split geometry in several rooms can be a problem
+* Transitions between rooms must be placed contiguous
+
+
+### Implementation
 
 In the create event:
 
