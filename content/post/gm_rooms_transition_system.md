@@ -8,13 +8,55 @@ draft : true
 
 ## Regions and One Giant Room
 
-`What is a region? When? Where? Why?`
+* `Why use a single giant room?`
+* `What is a region? When? Where? Why?`
 
+Initially, I decided to use a single room for an entire area in my platformer because i want to see
+each level in the editor.
 Region is a subroom and it was used as a replacement of original room.
-Initially, It seems to fit my needs because 
+Each object, that normally interact with room, has to interact with region instead.
+Transition happens when player change region.
+Camera is anchored to the current region.
+Each piece of code becomes too complex because of this.
 
-__Coupling between regions and many objects (camera_obj, switch_obj...)__
-__Talk about all_switches_enabled in Giant Room__
+For example:
+
+```
+/// @function all_switches_enabled
+/// @arg region
+
+with (argument0)
+{
+	var instances = ds_list_create();
+	collision_rectangle_list(x1, y1, x2, y2, switch_obj, false, true, instances, false);
+	
+	var all_enabled = true;
+	for (var i = 0; i < ds_list_size(instances); i++)
+	{
+		var door_switch = instances[|i];
+		if (!door_switch.enabled)
+			all_enabled = false;
+	}
+	
+	ds_list_destroy(instances);
+		
+	return all_enabled;
+}
+```
+
+instead of:
+
+```
+/// @function all_switches_enabled
+
+with (switch_obj)
+{
+	if (!enabled)
+		return false;
+}
+
+return true;
+```
 
 Pros
 
@@ -23,8 +65,9 @@ Pros
 
 Cons
 
-* Room editor is laggy as fuck: level design becomes a frustrating experience (slow edit/creation of new levels)
+* Room editor is laggy as fuck: designing levels becomes a frustrating experience
 * Change room order is a boring and bugprone process
+* Code is a mess
 * No need another abstraction over room (region)
 
 ### One level per room
@@ -33,9 +76,11 @@ Cons
 What is a transition? When? Where? Why?
 ```
 
-transition_obj is a teleport from a room to another.
+Transition is a teleport from a room to another.
 
 __Talk about all_switches_enabled in One Level Per Room__
+
+
 
 
 ```
@@ -47,6 +92,7 @@ spawn_x     = noone;
 spawn_y     = noone;
 
 ```
+
 When actor collides with it, switch room to target_room at positition [spawn_x, spawn_y]:
 
 ```
