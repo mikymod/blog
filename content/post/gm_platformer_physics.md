@@ -13,10 +13,16 @@ draft : true
 
 * Each object are AABB (axed-aligned bounding boxes)
 * Object size and position are integers
-* Solids are a static geometry 
+* Solids are a static geometry
 * Actors are physical object that interacts with level geometry
 * Actors and solids never overlap
 * Solids never interact with other solids
+
+## Actor Events
+
+* Begin Step: check collisions
+* Step: calculate velocities (must be defined in each child object)
+* End Step: move actor
 
 ## Actor Move
 
@@ -24,5 +30,7 @@ draft : true
 
 ## Solid move
 
+* Solid move through other solids w/o collides
 * Solid can carry or push an Actor
 * Push always override Carry
+
